@@ -1,2 +1,2 @@
 # Human-Exterminator
-Game is fun.
+Game will be fun.
