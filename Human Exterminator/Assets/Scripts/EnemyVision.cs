@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class EnemyVision : MonoBehaviour
 {
+    [SerializeField]
+    private float maxVision = 5.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,9 +24,34 @@ public class EnemyVision : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            collision.gameObject.SetActive(false);
+            CheckForObstacles(collision.gameObject);
+        }
+    }
 
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            CheckForObstacles(collision.gameObject);
+        }
+    }
+
+    private void CheckForObstacles(GameObject collision)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, collision.transform.position, maxVision);
+
+        Debug.DrawLine(transform.position, collision.transform.position, Color.yellow);
+
+        if (hit.collider != null)
+        {
+            Debug.Log("Hit " + hit.collider.gameObject.tag);
+
+            if (hit.collider.gameObject.tag == "Player")
+            {
+                collision.gameObject.SetActive(false);
+
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
         }
     }
 }
