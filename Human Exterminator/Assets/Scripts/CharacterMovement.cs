@@ -41,6 +41,15 @@ public class CharacterMovement : MonoBehaviour
         {
             Boo();
         }
+
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            this.GetComponent<BoxCollider2D>().enabled = false;
+        }
+        else
+        {
+            this.GetComponent<BoxCollider2D>().enabled = true;
+        }
     }
 
     /// <summary>
