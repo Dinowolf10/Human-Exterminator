@@ -87,7 +87,8 @@ public class CharacterMovement : MonoBehaviour
                 direction = Quaternion.Euler(0, 0, 315);
                 break;
         }
-        Instantiate(spook, playPos, direction);
+        spook.SetActive(true);
+        //spook.enabled = true;
     }
 
     /// <summary>

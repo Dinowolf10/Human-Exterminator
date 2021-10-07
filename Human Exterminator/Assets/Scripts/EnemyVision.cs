@@ -28,6 +28,7 @@ public class EnemyVision : MonoBehaviour
             // Checks for obstacles in between enemy and player
             CheckForObstacles(collision.gameObject);
         }
+        
     }
 
     /// <summary>
