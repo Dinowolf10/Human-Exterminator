@@ -32,8 +32,14 @@ public class WalkPath : MonoBehaviour
         Vector3 target = path[nextPoint];
         Vector3 direction = (target - transform.position).normalized;
 
-        // move in that direction
-        transform.Translate(direction * walkSpeed * Time.deltaTime);
+        // Calculates angle to rotate to using direction vector
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        // Rotates this enemy towards the next point in the path
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+        // Move forward
+        transform.Translate(Vector3.right * walkSpeed * Time.deltaTime);
 
         // check if target point was reached
         Vector3 directionToTarget = target - transform.position;
