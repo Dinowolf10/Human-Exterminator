@@ -272,10 +272,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3502511102706055914, guid: 8139f1f9baeeff9478090952c012eb75, type: 3}
-      propertyPath: m_TagString
-      value: SpookZone
-      objectReference: {fileID: 0}
     - target: {fileID: 3808702535012692033, guid: 8139f1f9baeeff9478090952c012eb75, type: 3}
       propertyPath: phaseBar
       value: 
@@ -437,6 +433,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4986790192647817433, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: m_SpriteTilingProperty.border.w
+      value: 0.049999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 4986790192647817433, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: m_SpriteTilingProperty.border.x
+      value: 0.049999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 4986790192647817433, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: m_SpriteTilingProperty.border.y
+      value: 0.049999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 4986790192647817433, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: m_SpriteTilingProperty.border.z
+      value: 0.049999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 4986790192647817433, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4986790192647817433, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4986790192647817433, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4986790192647817433, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.16
+      objectReference: {fileID: 0}
     - target: {fileID: 7406268687684451781, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
       propertyPath: m_Name
       value: RightEnemy

@@ -14,8 +14,14 @@ public class EnemyVision : MonoBehaviour
         // If it is the player, call the CheckForObstacles method
         if (collision.gameObject.tag == "Player")
         {
+            // Disable player
+            collision.gameObject.SetActive(false);
+
+            // Restart the current scene
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
             // Checks for obstacles in between enemy and player
-            CheckForObstacles(collision.gameObject);
+            //CheckForObstacles(collision.gameObject);
         }
     }
 
@@ -25,8 +31,14 @@ public class EnemyVision : MonoBehaviour
         // If it is the player, call the CheckForObstacles method
         if (collision.gameObject.tag == "Player")
         {
+            // Disable player
+            collision.gameObject.SetActive(false);
+
+            // Restart the current scene
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
             // Checks for obstacles in between enemy and player
-            CheckForObstacles(collision.gameObject);
+            //CheckForObstacles(collision.gameObject);
         }
         
     }
