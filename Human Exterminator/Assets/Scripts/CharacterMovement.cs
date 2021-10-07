@@ -48,7 +48,7 @@ public class CharacterMovement : MonoBehaviour
         
 
         //decreases the phase bar while holding down control
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             phaseBar.slider.value = phaseBar.slider.value - Time.deltaTime;
         }
@@ -73,11 +73,11 @@ public class CharacterMovement : MonoBehaviour
         {
             Collider2D col = wall.GetComponent<Collider2D>();
 
-            if (Input.GetKeyUp(KeyCode.LeftControl))
+            if (Input.GetKeyUp(KeyCode.LeftShift))
             {
                 col.enabled = true;
             }
-            else if (Input.GetKey(KeyCode.LeftControl) && phaseBar.slider.value > 0)
+            else if (Input.GetKey(KeyCode.LeftShift) && phaseBar.slider.value > 0)
             {
                 if (col.enabled == false)
                 {
