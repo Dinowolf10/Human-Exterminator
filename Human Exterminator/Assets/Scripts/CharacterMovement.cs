@@ -18,21 +18,40 @@ public class CharacterMovement : MonoBehaviour
 
     public Vector2 speed = new Vector2(10, 10);
     public GameObject spook;
+    GameObject[] walls;
+    public PhaseBar phaseBar;
 
     Direction playDir = Direction.Up;
+
+    private void Start()
+    {
+        //adds all wall tagged items to the wall list
+        walls = GameObject.FindGameObjectsWithTag("Wall");
+    }
 
     // Update is called once per frame
     void Update()
     {
-
+        //takes the input of the x and y axis
         float inputX = Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
 
+        //modifies player movement based off of input and time
         Vector3 movement = new Vector3(speed.x*inputX, speed.y*inputY, 0);
-
         movement *= Time.deltaTime;
 
+        //moves the player sprite
         transform.Translate(movement);
+
+        //phases the player through walls if they have enough phase
+        Phase();
+        
+
+        //decreases the phase bar while holding down control
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            phaseBar.slider.value = phaseBar.slider.value - Time.deltaTime;
+        }
 
         //keep track of player facing direction 
         FindDirection();
@@ -42,15 +61,33 @@ public class CharacterMovement : MonoBehaviour
             Boo();
         }
 
-        if (Input.GetKey(KeyCode.LeftControl))
+
+    }
+
+    /// <summary>
+    /// gets the collider of each item in the wall array, and when the left control button is pressed they will be disabled
+    /// </summary>
+    void Phase()
+    {
+        foreach (GameObject wall in walls)
         {
-            this.GetComponent<BoxCollider2D>().enabled = false;
-        }
-        else
-        {
-            this.GetComponent<BoxCollider2D>().enabled = true;
+            Collider2D col = wall.GetComponent<Collider2D>();
+
+            if (Input.GetKeyUp(KeyCode.LeftControl))
+            {
+                col.enabled = true;
+            }
+            else if (Input.GetKey(KeyCode.LeftControl) && phaseBar.slider.value > 0)
+            {
+                if (col.enabled == false)
+                {
+                    return;
+                }
+                col.enabled = false;
+            }
         }
     }
+
 
     /// <summary>
     /// Scares the human if they are turned away from the ghost and within range of the spook. 
