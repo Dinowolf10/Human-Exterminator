@@ -264,6 +264,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3502511102706055914, guid: 8139f1f9baeeff9478090952c012eb75, type: 3}
+      propertyPath: m_TagString
+      value: SpookZone
+      objectReference: {fileID: 0}
     - target: {fileID: 3808702535012692033, guid: 8139f1f9baeeff9478090952c012eb75, type: 3}
       propertyPath: phaseBar
       value: 
