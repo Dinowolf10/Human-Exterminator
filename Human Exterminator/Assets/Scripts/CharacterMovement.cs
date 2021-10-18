@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class CharacterMovement : MonoBehaviour
     public GameObject spook;
     GameObject[] walls;
     public PhaseBar phaseBar;
+    bool hasKeyPressed;
 
     Direction playDir = Direction.Up;
 
@@ -44,8 +46,8 @@ public class CharacterMovement : MonoBehaviour
         transform.Translate(movement);
 
         //phases the player through walls if they have enough phase
-        Phase();
-        
+            Phase();
+                
 
         //decreases the phase bar while holding down control
         if (Input.GetKey(KeyCode.LeftShift))
@@ -73,20 +75,29 @@ public class CharacterMovement : MonoBehaviour
         {
             Collider2D col = wall.GetComponent<Collider2D>();
 
+
+
+
+
             if (Input.GetKeyUp(KeyCode.LeftShift))
             {
                 col.enabled = true;
-            }
+            }           
             else if (Input.GetKey(KeyCode.LeftShift) && phaseBar.slider.value > 0)
             {
-                if (col.enabled == false)
-                {
-                    return;
-                }
-                col.enabled = false;
+
+                    if (col.enabled == false)
+                    {
+                        return;
+                    }
+                    col.enabled = false;
+                
             }
+
+            
         }
     }
+
 
 
     /// <summary>
