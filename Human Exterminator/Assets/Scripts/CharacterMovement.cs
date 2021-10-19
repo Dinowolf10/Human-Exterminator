@@ -21,7 +21,7 @@ public class CharacterMovement : MonoBehaviour
     public GameObject spook;
     GameObject[] walls;
     public PhaseBar phaseBar;
-    bool hasKeyPressed;
+    float timeAfterPhase;
 
     Direction playDir = Direction.Up;
 
@@ -31,28 +31,47 @@ public class CharacterMovement : MonoBehaviour
         walls = GameObject.FindGameObjectsWithTag("Wall");
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
         //takes the input of the x and y axis
         float inputX = Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
 
         //modifies player movement based off of input and time
-        Vector3 movement = new Vector3(speed.x*inputX, speed.y*inputY, 0);
+        Vector3 movement = new Vector3(speed.x * inputX, speed.y * inputY, 0);
         movement *= Time.deltaTime;
 
         //moves the player sprite
         transform.Translate(movement);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+       
 
         //phases the player through walls if they have enough phase
             Phase();
+
+
                 
 
         //decreases the phase bar while holding down control
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            phaseBar.slider.value = phaseBar.slider.value - Time.deltaTime;
+            phaseBar.slider.value -= Time.deltaTime;
+            timeAfterPhase = 0;
+        }
+        else
+        {
+            timeAfterPhase += Time.deltaTime;
+        }
+
+
+
+        if (timeAfterPhase >= 3.0)
+        {
+            phaseBar.slider.value += (Time.deltaTime/2);
         }
 
         //keep track of player facing direction 
@@ -82,6 +101,7 @@ public class CharacterMovement : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.LeftShift))
             {
                 col.enabled = true;
+                timeAfterPhase = timeAfterPhase + Time.deltaTime;
             }           
             else if (Input.GetKey(KeyCode.LeftShift) && phaseBar.slider.value > 0)
             {
@@ -93,6 +113,8 @@ public class CharacterMovement : MonoBehaviour
                     col.enabled = false;
                 
             }
+
+
 
             
         }

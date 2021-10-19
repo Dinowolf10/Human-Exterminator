@@ -180,7 +180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2768091453449706916, guid: b035ea8ceb9587d49afeb08582ec5bd7, type: 3}
       propertyPath: m_TagString
-      value: Wall
+      value: TrueWall
       objectReference: {fileID: 0}
     - target: {fileID: 2768091453449706918, guid: b035ea8ceb9587d49afeb08582ec5bd7, type: 3}
       propertyPath: m_Size.x
@@ -592,7 +592,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2768091453449706916, guid: b035ea8ceb9587d49afeb08582ec5bd7, type: 3}
       propertyPath: m_TagString
-      value: Wall
+      value: TrueWall
       objectReference: {fileID: 0}
     - target: {fileID: 2768091453449706918, guid: b035ea8ceb9587d49afeb08582ec5bd7, type: 3}
       propertyPath: m_Size.x
@@ -891,7 +891,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2768091453449706916, guid: b035ea8ceb9587d49afeb08582ec5bd7, type: 3}
       propertyPath: m_TagString
-      value: Wall
+      value: TrueWall
       objectReference: {fileID: 0}
     - target: {fileID: 2768091453449706918, guid: b035ea8ceb9587d49afeb08582ec5bd7, type: 3}
       propertyPath: m_Size.x
@@ -1112,7 +1112,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2768091453449706916, guid: b035ea8ceb9587d49afeb08582ec5bd7, type: 3}
       propertyPath: m_TagString
-      value: Wall
+      value: TrueWall
       objectReference: {fileID: 0}
     - target: {fileID: 2768091453449706918, guid: b035ea8ceb9587d49afeb08582ec5bd7, type: 3}
       propertyPath: m_Size.x
@@ -1263,7 +1263,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2768091453449706916, guid: b035ea8ceb9587d49afeb08582ec5bd7, type: 3}
       propertyPath: m_TagString
-      value: Wall
+      value: TrueWall
       objectReference: {fileID: 0}
     - target: {fileID: 2768091453449706918, guid: b035ea8ceb9587d49afeb08582ec5bd7, type: 3}
       propertyPath: m_Size.x
@@ -1340,7 +1340,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2768091453449706916, guid: b035ea8ceb9587d49afeb08582ec5bd7, type: 3}
       propertyPath: m_TagString
-      value: Wall
+      value: TrueWall
       objectReference: {fileID: 0}
     - target: {fileID: 2768091453449706918, guid: b035ea8ceb9587d49afeb08582ec5bd7, type: 3}
       propertyPath: m_Size.x
