@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class CharacterMovement : MonoBehaviour
 {
+    [SerializeField]
+    private PauseManager pauseManager;
+
     enum Direction
     {
         Up, 
@@ -29,6 +32,15 @@ public class CharacterMovement : MonoBehaviour
     {
         //adds all wall tagged items to the wall list
         walls = GameObject.FindGameObjectsWithTag("Wall");
+
+        // Store a reference to the pauseManager script component from the levelManager
+        pauseManager = GameObject.Find("LevelManager").GetComponent<PauseManager>();
+
+        // Checks if pauseManager is null
+        if (pauseManager == null)
+        {
+            Debug.Log("pauseManager is null!");
+        }
     }
 
     private void FixedUpdate()
@@ -48,55 +60,46 @@ public class CharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-
         //phases the player through walls if they have enough phase
-            Phase();
+        Phase();
 
-
-                
-
-        //decreases the phase bar while holding down control
-        if (Input.GetKey(KeyCode.LeftShift))
+        // Checks if game is not paused
+        if (!pauseManager.gamePaused)
         {
-            phaseBar.slider.value -= Time.deltaTime;
-            timeAfterPhase = 0;
+            //decreases the phase bar while holding down left shift
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                phaseBar.slider.value -= Time.deltaTime;
+                timeAfterPhase = 0;
+            }
+            else
+            {
+                timeAfterPhase += Time.deltaTime;
+            }
+
+            if (timeAfterPhase >= 3.0)
+            {
+                phaseBar.slider.value += (Time.deltaTime / 2);
+            }
+
+            //keep track of player facing direction 
+            FindDirection();
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Boo();
+            }
         }
-        else
-        {
-            timeAfterPhase += Time.deltaTime;
-        }
-
-
-
-        if (timeAfterPhase >= 3.0)
-        {
-            phaseBar.slider.value += (Time.deltaTime/2);
-        }
-
-        //keep track of player facing direction 
-        FindDirection();
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Boo();
-        }
-
-
     }
 
     /// <summary>
-    /// gets the collider of each item in the wall array, and when the left control button is pressed they will be disabled
+    /// gets the collider of each item in the wall array, and when the left shift button is pressed they will be disabled
     /// </summary>
     void Phase()
     {
         foreach (GameObject wall in walls)
         {
             Collider2D col = wall.GetComponent<Collider2D>();
-
-
-
-
 
             if (Input.GetKeyUp(KeyCode.LeftShift))
             {
@@ -105,22 +108,14 @@ public class CharacterMovement : MonoBehaviour
             }           
             else if (Input.GetKey(KeyCode.LeftShift) && phaseBar.slider.value > 0)
             {
-
-                    if (col.enabled == false)
-                    {
-                        return;
-                    }
-                    col.enabled = false;
-                
+                if (col.enabled == false)
+                {
+                    return;
+                }
+                col.enabled = false;
             }
-
-
-
-            
         }
     }
-
-
 
     /// <summary>
     /// Scares the human if they are turned away from the ghost and within range of the spook. 
