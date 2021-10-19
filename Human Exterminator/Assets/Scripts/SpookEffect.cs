@@ -95,7 +95,5 @@ public class SpookEffect : MonoBehaviour
             // Checks for obstacles in between enemy and player
             Destroy(collide.gameObject);
         }
-
     }
-
 }

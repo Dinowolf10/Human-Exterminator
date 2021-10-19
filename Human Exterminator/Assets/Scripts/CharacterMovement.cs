@@ -33,13 +33,14 @@ public class CharacterMovement : MonoBehaviour
         //adds all wall tagged items to the wall list
         walls = GameObject.FindGameObjectsWithTag("Wall");
 
-        // Store a reference to the pauseManager script component from the levelManager
+        // Store a reference to the pauseManager script component from the levelManager game object
         pauseManager = GameObject.Find("LevelManager").GetComponent<PauseManager>();
 
         // Checks if pauseManager is null
         if (pauseManager == null)
         {
-            Debug.Log("pauseManager is null!");
+            // If it is, print an error message
+            Debug.LogError("pauseManager is null!");
         }
     }
 
