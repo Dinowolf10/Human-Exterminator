@@ -25,6 +25,9 @@ public class CharacterMovement : MonoBehaviour
     GameObject[] walls;
     public PhaseBar phaseBar;
     float timeAfterPhase;
+    float timeAfterSpook;
+    float spookCooldown = 1;
+    float timeSinceSpook = 0;
 
     Direction playDir = Direction.Up;
 
@@ -86,10 +89,16 @@ public class CharacterMovement : MonoBehaviour
             //keep track of player facing direction 
             FindDirection();
 
-            if (Input.GetKeyDown(KeyCode.Space))
+
+            if (Input.GetKeyDown(KeyCode.Space) && timeSinceSpook > spookCooldown)
             {
                 Boo();
             }
+            else
+            {
+                timeSinceSpook += Time.deltaTime;
+            }
+
         }
     }
 
@@ -125,6 +134,7 @@ public class CharacterMovement : MonoBehaviour
     {
         Vector3 playPos = transform.position;
         Quaternion direction = Quaternion.Euler(0, 0, 0);
+        timeSinceSpook = 0;
 
         //sets the direction of the spook off of play orientation
         switch (playDir)
