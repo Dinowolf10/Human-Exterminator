@@ -8,8 +8,8 @@ public class WalkPath : MonoBehaviour
     private int nextPoint = 0; // the index of the next point to get to
     private float waitTime = 0; // tracks how much the entity has waited
 
-    public int waitTimeAtPivots = 0; // the amount of time the entity pauses when they get to a point
-    public float walkSpeed = 10f; // how fast this entity will move along its path
+    public int waitTimeAtPivots = 1; // the amount of time the entity pauses when they get to a point
+    public float walkSpeed = 1f; // how fast this entity will move along its path
     public List<Vector3> path = new List<Vector3>(); // Add points to this list to create the path. Order matters
 
     // Start is called before the first frame update
