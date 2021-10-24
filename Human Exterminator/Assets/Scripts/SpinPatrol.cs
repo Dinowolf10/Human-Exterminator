@@ -12,6 +12,7 @@ public class SpinPatrol : MonoBehaviour
     public float spinSpeed = 0.25f; // full rotations per second. Note: actual spin duration will be more if pause spots are utilized
     public float waitTime = 1f; // amount of time to wait at each pause spot in seconds
     public bool clockwise = true;
+    public bool oscillate = false; // if true, makes the enemy spin back and forth between two set angles
 
     // whether or not to stop at certain angles, only cardinals and diagonals
     public bool pauseLeft = false;
@@ -30,8 +31,23 @@ public class SpinPatrol : MonoBehaviour
         while(angle >= 360) {
             angle -= 360;
         }
+        while(angle < 0) {
+            angle += 360;
+        }
         SetRotationToAngle();
-        nextImportantAngle = (int)angle % 45  * 45; // calculate next important angle based on start
+
+        // calculate first important angle based on start
+        nextImportantAngle = (int)angle / 45 * 45; // round down to nearest multiple of 45
+        if(!clockwise && angle % 45 != 0) {
+            nextImportantAngle += 45;
+        }
+
+        if(nextImportantAngle < 0) {
+            nextImportantAngle += 360;
+        }
+        if(nextImportantAngle > 360) {
+            nextImportantAngle -= 360;
+        }
     }
 
     // Update is called once per frame
@@ -41,26 +57,77 @@ public class SpinPatrol : MonoBehaviour
             waitTimeLeft -= Time.deltaTime;
         } else {
             // spin more
-            angle += 360 * spinSpeed * Time.deltaTime * (clockwise ? -1 : 1);
-            
-            // check if passed the next important angle
-            if(angle >= nextImportantAngle) {
-                // check if supposed to pause at this angle
-                if(IsPauseAngle(nextImportantAngle)) {
-                    angle = nextImportantAngle;
-                    waitTimeLeft = waitTime;
-                }
+            bool changeDirection = false;
 
-                // set the next target angle
-                nextImportantAngle += 45;
-                if(nextImportantAngle > 360) {
-                    // basically, convert 405 to 45
-                    nextImportantAngle -= 360;
+            if(!clockwise) {
+                angle += 360 * spinSpeed * Time.deltaTime;
+            
+                // check if passed the next important angle
+                if(angle >= nextImportantAngle) {
+                    // check if supposed to pause at this angle
+                    if(IsPauseAngle(nextImportantAngle)) {
+                        angle = nextImportantAngle;
+                        waitTimeLeft = waitTime;
+
+                        if(oscillate) {
+                            changeDirection = true;
+                        }
+                    }
+
+                    // set the next target angle
+                    nextImportantAngle += 45;
+                    if(nextImportantAngle > 360) {
+                        // basically, convert 405 to 45
+                        nextImportantAngle -= 360;
+                    }
+                }
+            } else { // clockwise
+                angle -= 360 * spinSpeed * Time.deltaTime;
+
+                // check if passed the next important angle
+                if(angle <= nextImportantAngle) {
+                    // check if supposed to pause at this angle
+                    if(IsPauseAngle(nextImportantAngle)) {
+                        angle = nextImportantAngle;
+                        waitTimeLeft = waitTime;
+
+                        if(oscillate) {
+                            changeDirection = true;
+                        }
+                    }
+
+                    // set the next target angle
+                    nextImportantAngle -= 45;
+                    if(nextImportantAngle < 0) {
+                        // basically, convert -45 to 305
+                        nextImportantAngle += 360;
+                    }
                 }
             }
-          
+
+            if(changeDirection) {
+                clockwise = !clockwise;
+
+                // move next angle
+                if(clockwise) {
+                    nextImportantAngle -= 90;
+                    if(nextImportantAngle < 0) {
+                        nextImportantAngle += 360;
+                    }
+                } else {
+                    nextImportantAngle += 90;
+                    if(nextImportantAngle > 360) {
+                        nextImportantAngle -= 360;
+                    }
+                }
+            }
+            
+            // keep angle between 0 and 360, inclusive
             while(angle >= 360) {
                 angle -= 360;
+            }
+            while(angle < 0) {
+                angle += 360;
             }
             SetRotationToAngle();
         }
@@ -76,6 +143,7 @@ public class SpinPatrol : MonoBehaviour
         switch(angle) {
             default:
                 return false;
+            case 0:
             case 360:
                 return pauseRight;
             case 45:
