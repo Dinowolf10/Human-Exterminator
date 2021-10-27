@@ -11,26 +11,43 @@ public class LevelChanger : MonoBehaviour
 
     public List<GameObject> enemies;
 
+    [SerializeField]
+    private FadeToBlack fadeToBlack;
+
+    [SerializeField]
+    bool isFading = false;
+
     // Start is called before the first frame update
     void Start()
     {
+        // Gets index of current scene
         currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
+
+        // Stores reference to FadeToBlack script component
+        fadeToBlack = GameObject.Find("FadeToBlack").GetComponent<FadeToBlack>();
+
+        // Checks for null reference
+        if (fadeToBlack == null)
+        {
+            Debug.LogError("fadeToBlack is null!");
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        // If there are no more enemies left in the current level, change levels
-        if (enemies.Count == 0)
+        // If there are no more enemies left in the current level, start fade transition
+        if (enemies.Count == 0 && !isFading)
         {
-            ChangeLevel();
+            fadeToBlack.StartCoroutine("FadeScreen");
+            isFading = true;
         }
     }
 
     /// <summary>
     /// Loads the next level
     /// </summary>
-    private void ChangeLevel()
+    public void ChangeLevel()
     {
         // Checks if there is another scene after the current scene
         // If there is, load the next scene
