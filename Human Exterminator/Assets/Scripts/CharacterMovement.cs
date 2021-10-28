@@ -66,32 +66,20 @@ public class CharacterMovement : MonoBehaviour
     void Update()
     {
         //phases the player through walls if they have enough phase
-        Phase();
+            Phase();
+        
+
 
         // Checks if game is not paused
         if (!pauseManager.gamePaused)
         {
-            //decreases the phase bar while holding down left shift
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                phaseBar.slider.value -= Time.deltaTime;
-                timeAfterPhase = 0;
-            }
-            else
-            {
-                timeAfterPhase += Time.deltaTime;
-            }
 
-            if (timeAfterPhase >= 3.0)
-            {
-                phaseBar.slider.value += (Time.deltaTime / 2);
-            }
 
             //keep track of player facing direction 
             FindDirection();
 
 
-            if (Input.GetKeyDown(KeyCode.Space) && timeSinceSpook > spookCooldown)
+            if (Input.GetKeyDown(KeyCode.Q) && timeSinceSpook > spookCooldown)
             {
                 Boo();
             }
@@ -112,19 +100,40 @@ public class CharacterMovement : MonoBehaviour
         {
             Collider2D col = wall.GetComponent<Collider2D>();
 
-            if (Input.GetKeyUp(KeyCode.LeftShift))
+            if (Input.GetKeyUp(KeyCode.Space) || phaseBar.slider.value <= 0)
             {
                 col.enabled = true;
                 timeAfterPhase = timeAfterPhase + Time.deltaTime;
             }           
-            else if (Input.GetKey(KeyCode.LeftShift) && phaseBar.slider.value > 0)
+            else if (Input.GetKey(KeyCode.Space) && phaseBar.slider.value == phaseBar.slider.maxValue)
             {
                 if (col.enabled == false)
                 {
                     return;
                 }
                 col.enabled = false;
+                //decreases the phase bar while holding down space
             }
+            else if(phaseBar.slider.value == phaseBar.slider.minValue)
+            {
+                return;
+            }
+        }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            phaseBar.slider.value -= Time.deltaTime;
+            timeAfterPhase = 0;
+        }
+        else
+        {
+            timeAfterPhase += Time.deltaTime;
+        }
+
+
+        if (timeAfterPhase >= 3.0)
+        {
+            phaseBar.slider.value += (Time.deltaTime / 2);
         }
     }
 
