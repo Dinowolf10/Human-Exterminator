@@ -535,10 +535,10 @@ MonoBehaviour:
 
     Move: WASD
 
-    Spook/Scare: Spacebar
+    Spook/Scare: Q
 
-    Phase through
-    walls: Left Shift (hold)'
+    Phase through walls:
+    Spacebar (hold)'
 --- !u!222 &1021398330
 CanvasRenderer:
   m_ObjectHideFlags: 0

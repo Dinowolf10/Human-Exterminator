@@ -12,6 +12,10 @@ public class EnemyAnimationsManager : MonoBehaviour
     [SerializeField]
     private GameObject enemyVision;
 
+    // Reference grabbed in editor
+    [SerializeField]
+    private Collider2D enemyCollider;
+
     /// <summary>
     /// Updates enemy animator variables based on passed in angle and bool
     /// </summary>
@@ -115,6 +119,9 @@ public class EnemyAnimationsManager : MonoBehaviour
 
         // Deactivates enemy vision
         enemyVision.SetActive(false);
+
+        // Deactivates enemy hitbox
+        enemyCollider.enabled = false;
 
         // Waits for enemy death animation to finish
         yield return new WaitForSeconds(3.2f);

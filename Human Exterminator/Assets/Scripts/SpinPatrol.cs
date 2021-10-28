@@ -24,9 +24,22 @@ public class SpinPatrol : MonoBehaviour
     public bool pauseUpRight = false;
     public bool pauseDownRight = false;
 
+    // Reference grabbed in editor
+    [SerializeField]
+    private EnemyAnimationsManager animationsManager;
+
     // Start is called before the first frame update
     void Start()
     {
+        // Stores reference to this enemy's EnemyAnimationsManager script
+        animationsManager = transform.GetComponentInParent<EnemyAnimationsManager>();
+
+        // Checks for null reference
+        if (animationsManager == null)
+        {
+            Debug.LogError("animationsManager is null!");
+        }
+
         // make enemy start facing the input angle
         while(angle >= 360) {
             angle -= 360;
@@ -136,6 +149,9 @@ public class SpinPatrol : MonoBehaviour
     // updates the enemy's rotation to match the target angle
     private void SetRotationToAngle() {
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+        // Updates enemy animation state
+        animationsManager.UpdateAnimationVariables(angle, false);
     }
 
     // checks the direction boolean that matches the input angle
