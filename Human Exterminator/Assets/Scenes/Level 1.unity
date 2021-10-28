@@ -475,6 +475,42 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4198759450892031922, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: walkSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -4198759450892031922, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: path.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -4198759450892031922, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: waitTimeAtPivots
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4198759450892031922, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: path.Array.data[0].x
+      value: -2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -4198759450892031922, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: path.Array.data[0].y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4198759450892031922, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: path.Array.data[1].x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -4198759450892031922, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: path.Array.data[1].y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4198759450892031922, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: path.Array.data[2].x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -4198759450892031922, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: path.Array.data[3].x
+      value: -2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7406268687684451781, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
       propertyPath: m_Name
       value: TopEnemy
@@ -530,27 +566,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7406268687684451781, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
   m_PrefabInstance: {fileID: 452537422}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &452537424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 452537423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 670c84f293d282a46976ec6e9a7c9a33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waitTimeAtPivots: 2
-  walkSpeed: 1.5
-  path:
-  - {x: -2.5, y: 2, z: 0}
-  - {x: 2.5, y: 2, z: 0}
-  - {x: 2.5, y: 0, z: 0}
-  - {x: -2.5, y: 0, z: 0}
-  vision: {fileID: 0}
-  animationManager: {fileID: 0}
 --- !u!224 &530882723 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4678102763010586579, guid: 4948a2317a4338d459f228283174aaf9, type: 3}

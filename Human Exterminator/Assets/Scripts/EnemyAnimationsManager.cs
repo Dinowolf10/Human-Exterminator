@@ -8,6 +8,10 @@ public class EnemyAnimationsManager : MonoBehaviour
     [SerializeField]
     private Animator enemyAnimator;
 
+    // Reference grabbed in editor
+    [SerializeField]
+    private GameObject enemyVision;
+
     /// <summary>
     /// Updates enemy animator variables based on passed in angle and bool
     /// </summary>
@@ -98,5 +102,24 @@ public class EnemyAnimationsManager : MonoBehaviour
                 enemyAnimator.SetBool("isWalkingDown", false);
             }
         }
+    }
+
+    /// <summary>
+    /// Plays enemy death animation and destroy this enemy
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerator EnemyDeath()
+    {
+        // Sets isDying to true
+        enemyAnimator.SetBool("isDying", true);
+
+        // Deactivates enemy vision
+        enemyVision.SetActive(false);
+
+        // Waits for enemy death animation to finish
+        yield return new WaitForSeconds(3.2f);
+
+        // Destroys this enemy
+        Destroy(this.gameObject);
     }
 }

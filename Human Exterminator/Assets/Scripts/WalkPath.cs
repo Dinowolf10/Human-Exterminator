@@ -20,8 +20,10 @@ public class WalkPath : MonoBehaviour
 
     private bool isWalking = false;
 
+    public bool isDying = false;
+
     // Start is called before the first frame update
-    void Start() 
+    void Start()
     {
         // Gets reference to enemyVisionContainer child game object
         vision = transform.GetChild(0).gameObject;
@@ -46,7 +48,8 @@ public class WalkPath : MonoBehaviour
     // Moves the entity towards the next point in the path. Once they pass it, they move to the next point
     void Update()
     {
-        if(path.Count <= 0) {
+        // If there is no path/points to walk to or this enemy is dying, return
+        if(path.Count <= 0 || isDying) {
             return;
         }
 

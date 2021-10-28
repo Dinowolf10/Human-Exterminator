@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: -4417667697707957563}
   - component: {fileID: 2869625566460207510}
   - component: {fileID: -4198759450892031922}
-  - component: {fileID: 8436971916290004142}
+  - component: {fileID: 4174294363310941287}
   m_Layer: 2
   m_Name: Enemy
   m_TagString: Enemy
@@ -340,8 +340,9 @@ MonoBehaviour:
   walkSpeed: 1
   path: []
   vision: {fileID: 3730968974963027454}
-  animationManager: {fileID: 8436971916290004142}
---- !u!114 &8436971916290004142
+  animationManager: {fileID: 0}
+  isDying: 0
+--- !u!114 &4174294363310941287
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -354,3 +355,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyAnimator: {fileID: 2869625566460207510}
+  enemyVision: {fileID: 281801181}
+  walkPath: {fileID: -4198759450892031922}

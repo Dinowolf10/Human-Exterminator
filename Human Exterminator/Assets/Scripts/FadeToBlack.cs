@@ -66,7 +66,7 @@ public class FadeToBlack : MonoBehaviour
         }
 
         // After screen has faded to black, wait a couple seconds
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(1.0f);
 
         // Change Levels
         levelChanger.ChangeLevel();

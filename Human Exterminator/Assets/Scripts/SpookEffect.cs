@@ -92,8 +92,15 @@ public class SpookEffect : MonoBehaviour
         // Checks if its hitting an enemy
         if (collide.gameObject.tag == "Enemy")
         {
-            // Checks for obstacles in between enemy and player
-            Destroy(collide.gameObject);
+            // Calls this enemies death coroutine if the enemy is not already dying
+            if (!collide.gameObject.GetComponent<WalkPath>().isDying)
+            {
+                // Sets isDying to true from WalkPath script
+                collide.gameObject.GetComponent<WalkPath>().isDying = true;
+
+                // Starts enemy death coroutine from EnemyAnimationsManager script
+                collide.gameObject.GetComponent<EnemyAnimationsManager>().StartCoroutine("EnemyDeath");
+            }
         }
     }
 }
