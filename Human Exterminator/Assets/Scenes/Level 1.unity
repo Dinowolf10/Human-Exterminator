@@ -234,7 +234,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3502511102706055914, guid: 8139f1f9baeeff9478090952c012eb75, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3808702535012692033, guid: 8139f1f9baeeff9478090952c012eb75, type: 3}
       propertyPath: phaseBar
