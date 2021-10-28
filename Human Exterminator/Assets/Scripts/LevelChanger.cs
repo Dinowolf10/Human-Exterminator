@@ -36,7 +36,7 @@ public class LevelChanger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // If there are no more enemies left in the current level, start fade transition
+        // If there are no more enemies left in the current level, start fade transition and set isFading to true
         if (enemies.Count == 0 && !isFading)
         {
             fadeToBlack.StartCoroutine("FadeScreen");
