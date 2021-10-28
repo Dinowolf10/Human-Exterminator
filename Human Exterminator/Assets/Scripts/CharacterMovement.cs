@@ -74,6 +74,21 @@ public class CharacterMovement : MonoBehaviour
         if (!pauseManager.gamePaused)
         {
 
+            if (Input.GetKey(KeyCode.Space))
+            {
+                phaseBar.slider.value -= Time.deltaTime;
+                timeAfterPhase = 0;
+            }
+            else
+            {
+                timeAfterPhase += Time.deltaTime;
+            }
+
+
+            if (timeAfterPhase >= 3.0)
+            {
+                phaseBar.slider.value += (Time.deltaTime / 2);
+            }
 
             //keep track of player facing direction 
             FindDirection();
@@ -105,14 +120,14 @@ public class CharacterMovement : MonoBehaviour
                 col.enabled = true;
                 timeAfterPhase = timeAfterPhase + Time.deltaTime;
             }           
-            else if (Input.GetKey(KeyCode.Space) && phaseBar.slider.value == phaseBar.slider.maxValue)
+            else if (Input.GetKey(KeyCode.Space))
             {
                 if (col.enabled == false)
                 {
                     return;
                 }
                 col.enabled = false;
-                //decreases the phase bar while holding down space
+
             }
             else if(phaseBar.slider.value == phaseBar.slider.minValue)
             {
@@ -120,21 +135,7 @@ public class CharacterMovement : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.Space))
-        {
-            phaseBar.slider.value -= Time.deltaTime;
-            timeAfterPhase = 0;
-        }
-        else
-        {
-            timeAfterPhase += Time.deltaTime;
-        }
 
-
-        if (timeAfterPhase >= 3.0)
-        {
-            phaseBar.slider.value += (Time.deltaTime / 2);
-        }
     }
 
     /// <summary>
