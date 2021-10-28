@@ -356,4 +356,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAnimator: {fileID: 2869625566460207510}
   enemyVision: {fileID: 281801181}
-  walkPath: {fileID: -4198759450892031922}
+  enemyCollider: {fileID: 1087359384664889725}
