@@ -15,17 +15,32 @@ public class WalkPath : MonoBehaviour
     [SerializeField]
     private GameObject vision;
 
+    [SerializeField]
+    private EnemyAnimationsManager animationManager;
+
+    private bool isWalking = false;
+
     // Start is called before the first frame update
     void Start() 
     {
         // Gets reference to enemyVisionContainer child game object
         vision = transform.GetChild(0).gameObject;
 
-        // Checks for null reference
+        // Gets reference to animationManager script
+        animationManager = gameObject.GetComponent<EnemyAnimationsManager>();
+
+        // Checks for null references
         if (vision == null)
         {
             Debug.LogError("vision is null!");
         }
+        if (animationManager == null)
+        {
+            Debug.LogError("enemy animationManager is null!");
+        }
+
+        // Calls animationManager's UpdateAnimationVariables method, passing in the angle and isWalking bool
+        animationManager.UpdateAnimationVariables(vision.transform.eulerAngles.z, isWalking);
     }
 
     // Moves the entity towards the next point in the path. Once they pass it, they move to the next point
@@ -35,9 +50,14 @@ public class WalkPath : MonoBehaviour
             return;
         }
 
-        // wait at a point
+        // wait at a point, sets isWalking to false
         if(waitTime > 0) {
+            isWalking = false;
             waitTime -= Time.deltaTime;
+
+            // Calls animationManager's UpdateAnimationVariables method, passing in the angle and isWalking bool
+            animationManager.UpdateAnimationVariables(vision.transform.eulerAngles.z, isWalking);
+
             return;
         }
 
@@ -54,7 +74,6 @@ public class WalkPath : MonoBehaviour
         // Move towards next path point
         transform.position = Vector2.MoveTowards(transform.position, path[nextPoint], walkSpeed * Time.deltaTime);
 
-
         // check if target point was reached
         Vector3 directionToTarget = target - transform.position;
         if(Vector3.Dot(directionToTarget, direction) <= 0) {
@@ -69,6 +88,14 @@ public class WalkPath : MonoBehaviour
 
             // wait the desired amount first
             waitTime = waitTimeAtPivots;
+        }
+        else
+        {
+            // Sets isWalking to true
+            isWalking = true;
+
+            // Calls animationManager's UpdateAnimationVariables method, passing in the angle and isWalking bool
+            animationManager.UpdateAnimationVariables(angle, isWalking);
         }
     }
 }
