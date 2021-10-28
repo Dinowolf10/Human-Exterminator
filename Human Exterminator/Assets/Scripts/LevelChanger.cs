@@ -17,6 +17,8 @@ public class LevelChanger : MonoBehaviour
     [SerializeField]
     bool isFading = false;
 
+    public AudioClip levelWinAudio;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +43,10 @@ public class LevelChanger : MonoBehaviour
         {
             fadeToBlack.StartCoroutine("FadeScreen");
             isFading = true;
+            AudioSource audio = GetComponent<AudioSource>();
+            audio.clip = levelWinAudio;
+            audio.Play();
+
         }
     }
 

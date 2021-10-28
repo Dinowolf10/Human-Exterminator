@@ -22,12 +22,13 @@ public class CharacterMovement : MonoBehaviour
 
     public Vector2 speed = new Vector2(10, 10);
     public GameObject spook;
+    public AudioClip spookSound;
     GameObject[] walls;
     public PhaseBar phaseBar;
     float timeAfterPhase;
     float timeAfterSpook;
-    float spookCooldown = 1;
-    float timeSinceSpook = 0;
+    float spookCooldown = 3;
+    float timeSinceSpook = 3;
 
     Direction playDir = Direction.Up;
 
@@ -135,6 +136,10 @@ public class CharacterMovement : MonoBehaviour
         Vector3 playPos = transform.position;
         Quaternion direction = Quaternion.Euler(0, 0, 0);
         timeSinceSpook = 0;
+
+        AudioSource audio = GetComponent<AudioSource>();
+        audio.clip = spookSound;
+        audio.Play();
 
         //sets the direction of the spook off of play orientation
         switch (playDir)
