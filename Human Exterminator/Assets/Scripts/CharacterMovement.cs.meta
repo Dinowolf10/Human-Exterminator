@@ -3,7 +3,11 @@ guid: 1d58b3b1b8292764e9452b03d1bce44b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - pauseManager: {instanceID: 0}
+  - spook: {instanceID: 0}
+  - spookSound: {fileID: 8300000, guid: a33b752d173d5ac4aa8741ef0a97a2fe, type: 3}
+  - phaseBar: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
