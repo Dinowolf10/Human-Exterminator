@@ -12,8 +12,21 @@ public class WalkPath : MonoBehaviour
     public float walkSpeed = 1f; // how fast this entity will move along its path
     public List<Vector3> path = new List<Vector3>(); // Add points to this list to create the path. Order matters
 
+    [SerializeField]
+    private GameObject vision;
+
     // Start is called before the first frame update
-    void Start() {}
+    void Start() 
+    {
+        // Gets reference to enemyVisionContainer child game object
+        vision = transform.GetChild(0).gameObject;
+
+        // Checks for null reference
+        if (vision == null)
+        {
+            Debug.LogError("vision is null!");
+        }
+    }
 
     // Moves the entity towards the next point in the path. Once they pass it, they move to the next point
     void Update()
@@ -32,14 +45,15 @@ public class WalkPath : MonoBehaviour
         Vector3 target = path[nextPoint];
         Vector3 direction = (target - transform.position).normalized;
 
-        // Calculates angle to rotate to using direction vector
+        // Calculates angle to rotate enemyVisionContainer to using direction vector
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        // Rotates this enemy towards the next point in the path
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        // Rotates this enemyVisionContainer towards the next point in the path
+        vision.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
-        // Move forward
-        transform.Translate(Vector3.right * walkSpeed * Time.deltaTime);
+        // Move towards next path point
+        transform.position = Vector2.MoveTowards(transform.position, path[nextPoint], walkSpeed * Time.deltaTime);
+
 
         // check if target point was reached
         Vector3 directionToTarget = target - transform.position;
