@@ -8,6 +8,15 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField]
     private PauseManager pauseManager;
 
+    [SerializeField]
+    private Animator playerAnimator;
+
+    [SerializeField]
+    private SpriteRenderer playerSprite;
+
+    [SerializeField]
+    private SpriteRenderer spookZoneSprite;
+
     enum Direction
     {
         Up, 
@@ -30,6 +39,15 @@ public class CharacterMovement : MonoBehaviour
     float spookCooldown = 3;
     float timeSinceSpook = 3;
 
+    private bool isSpooking = false;
+    public bool isDying = false;
+
+    [SerializeField]
+    private float fade = 1.0f;
+
+    [SerializeField]
+    private float fadeSpeed = 0.3f;
+
     Direction playDir = Direction.Up;
 
     private void Start()
@@ -50,6 +68,12 @@ public class CharacterMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Return if the player isDying
+        if (isDying)
+        {
+            return;
+        }
+
         //takes the input of the x and y axis
         float inputX = Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
@@ -66,13 +90,16 @@ public class CharacterMovement : MonoBehaviour
     void Update()
     {
         //phases the player through walls if they have enough phase
-            Phase();
-        
-
+        Phase();
 
         // Checks if game is not paused
         if (!pauseManager.gamePaused)
         {
+            // Return if the player isDying
+            if (isDying)
+            {
+                return;
+            }
 
             if (Input.GetKey(KeyCode.Space))
             {
@@ -96,7 +123,7 @@ public class CharacterMovement : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Q) && timeSinceSpook > spookCooldown)
             {
-                Boo();
+                StartCoroutine("Boo");
             }
             else
             {
@@ -134,22 +161,29 @@ public class CharacterMovement : MonoBehaviour
                 return;
             }
         }
-
-
     }
 
     /// <summary>
     /// Scares the human if they are turned away from the ghost and within range of the spook. 
     /// </summary>
-    void Boo()
+    IEnumerator Boo()
     {
         Vector3 playPos = transform.position;
         Quaternion direction = Quaternion.Euler(0, 0, 0);
         timeSinceSpook = 0;
 
+        // Plays spook audio
         AudioSource audio = GetComponent<AudioSource>();
         audio.clip = spookSound;
         audio.Play();
+
+        // Sets isSpooking to true
+        isSpooking = true;
+        playerAnimator.SetBool("isSpooking", true);
+        playerAnimator.SetBool("isDown", false);
+        playerAnimator.SetBool("isUp", false);
+        playerAnimator.SetBool("isRight", false);
+        playerAnimator.SetBool("isLeft", false);
 
         //sets the direction of the spook off of play orientation
         switch (playDir)
@@ -179,7 +213,62 @@ public class CharacterMovement : MonoBehaviour
                 break;
         }
         spook.SetActive(true);
-        //spook.enabled = true;
+
+        // Waits for 1 second
+        yield return new WaitForSeconds(1f);
+
+        // Sets isSpooking to false and isDown to true
+        isSpooking = false;
+        playerAnimator.SetBool("isDown", true);
+        playerAnimator.SetBool("isUp", false);
+        playerAnimator.SetBool("isRight", false);
+        playerAnimator.SetBool("isLeft", false);
+        playerAnimator.SetBool("isSpooking", false);
+    }
+
+    /// <summary>
+    /// Plays player "death animation" and restarts level
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator PlayerDeath()
+    {
+        // Sets isDying to true
+        isDying = true;
+        playerAnimator.SetBool("isDown", true);
+        playerAnimator.SetBool("isUp", false);
+        playerAnimator.SetBool("isRight", false);
+        playerAnimator.SetBool("isLeft", false);
+        playerAnimator.SetBool("isSpooking", false);
+
+        // Hides spookZoneSprite
+        spookZoneSprite.enabled = false;
+
+        // Sets fade to 1
+        fade = 1.0f;
+        
+        // Loops while fade is greater than 0
+        while (fade > -0.2f)
+        {
+            // Gets reference to playerSprite's color
+            Color playerSpriteColor = playerSprite.color;
+
+            // Sets the alpha to fade variable
+            playerSpriteColor.a = fade;
+
+            // Sets the playerSprite to playerSpriteColor with updated alpha
+            playerSprite.color = playerSpriteColor;
+
+            // Increases fade by fadeSpeed variable
+            fade -= fadeSpeed;
+
+            // Waits for 0.1 seconds
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        // After player has faded away, wait a second before restarting the level
+        yield return new WaitForSeconds(1.0f);
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     /// <summary>
@@ -187,15 +276,77 @@ public class CharacterMovement : MonoBehaviour
     /// </summary>
     void FindDirection()
     {
-        if (!Input.anyKeyDown) { }
-        else if (Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A)) { playDir = Direction.Up; }//up
-        else if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D)) { playDir = Direction.UpRight; }//upRight
-        else if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S)) { playDir = Direction.Right; }//right
-        else if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D)) { playDir = Direction.DownRight; }//downRight
-        else if (Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A)) { playDir = Direction.Down; }//down
-        else if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A)) { playDir = Direction.DownLeft; }//downLeft
-        else if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S)) { playDir = Direction.Left; } //left
-        else if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A)) { playDir = Direction.UpLeft; }//upLeft
-        else { return; }
+        // Upright
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D) && !isSpooking)
+        {
+            playDir = Direction.UpRight;
+            playerAnimator.SetBool("isUp", true);
+            playerAnimator.SetBool("isDown", false);
+            playerAnimator.SetBool("isRight", false);
+            playerAnimator.SetBool("isLeft", false);
+        }
+        // Downright
+        else if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D) && !isSpooking)
+        {
+            playDir = Direction.DownRight;
+            playerAnimator.SetBool("isDown", true);
+            playerAnimator.SetBool("isUp", false);
+            playerAnimator.SetBool("isRight", false);
+            playerAnimator.SetBool("isLeft", false);
+        }
+        // Downleft
+        else if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A) && !isSpooking)
+        {
+            playDir = Direction.DownLeft;
+            playerAnimator.SetBool("isDown", true);
+            playerAnimator.SetBool("isUp", false);
+            playerAnimator.SetBool("isRight", false);
+            playerAnimator.SetBool("isLeft", false);
+        }
+        // Upleft
+        else if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A))
+        {
+            playDir = Direction.UpLeft;
+            playerAnimator.SetBool("isUp", true);
+            playerAnimator.SetBool("isDown", false);
+            playerAnimator.SetBool("isRight", false);
+            playerAnimator.SetBool("isLeft", false);
+        }
+        // Up
+        else if ((Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S)) || (Input.GetKeyUp(KeyCode.S) && Input.GetKey(KeyCode.W))) 
+        { 
+            playDir = Direction.Up;
+            playerAnimator.SetBool("isUp", true);
+            playerAnimator.SetBool("isDown", false);
+            playerAnimator.SetBool("isRight", false);
+            playerAnimator.SetBool("isLeft", false);
+        }
+        // Right
+        else if ((Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.A)) || (Input.GetKeyUp(KeyCode.A) && Input.GetKey(KeyCode.D))) 
+        { 
+            playDir = Direction.Right;
+            playerAnimator.SetBool("isRight", true);
+            playerAnimator.SetBool("isDown", false);
+            playerAnimator.SetBool("isUp", false);
+            playerAnimator.SetBool("isLeft", false);
+        }
+        // Down
+        else if ((Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.W)) || (Input.GetKeyUp(KeyCode.W) && Input.GetKey(KeyCode.S))) 
+        { 
+            playDir = Direction.Down;
+            playerAnimator.SetBool("isDown", true);
+            playerAnimator.SetBool("isUp", false);
+            playerAnimator.SetBool("isRight", false);
+            playerAnimator.SetBool("isLeft", false);
+        }
+        // Left
+        else if ((Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D)) || (Input.GetKeyUp(KeyCode.D) && Input.GetKey(KeyCode.A))) 
+        { 
+            playDir = Direction.Left;
+            playerAnimator.SetBool("isLeft", true);
+            playerAnimator.SetBool("isDown", false);
+            playerAnimator.SetBool("isRight", false);
+            playerAnimator.SetBool("isUp", false);
+        }
     }
 }

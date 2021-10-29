@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2773166423852825628}
   - component: {fileID: 6153894294595107024}
   m_Layer: 8
-  m_Name: GameObject
+  m_Name: SpookZoneVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -221,6 +221,7 @@ GameObject:
   - component: {fileID: 747710391228392565}
   - component: {fileID: 3808702535012692033}
   - component: {fileID: -3182180329441964724}
+  - component: {fileID: -5474336311496251964}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -355,10 +356,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseManager: {fileID: 0}
+  playerAnimator: {fileID: -5474336311496251964}
+  playerSprite: {fileID: 3808702535012692032}
+  spookZoneSprite: {fileID: 6153894294595107024}
   speed: {x: 3, y: 3}
   spook: {fileID: 3502511102706055914}
   spookSound: {fileID: 8300000, guid: a33b752d173d5ac4aa8741ef0a97a2fe, type: 3}
   phaseBar: {fileID: 0}
+  isDying: 0
+  fade: 1
+  fadeSpeed: 0.08
 --- !u!82 &-3182180329441964724
 AudioSource:
   m_ObjectHideFlags: 0
@@ -371,7 +378,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -455,3 +462,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &-5474336311496251964
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3808702535012692034}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e95e9dc26f413764d8e65cb035574dda, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

@@ -12,20 +12,24 @@ public class EnemyVision : MonoBehaviour
     {
         // Checks if the colliding object is the player
         // If it is the player, call the CheckForObstacles method
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && !collision.gameObject.GetComponent<CharacterMovement>().isDying)
         {
-            // Disable player
+            // Call the PlayerDeath method
+            collision.gameObject.GetComponent<CharacterMovement>().StartCoroutine("PlayerDeath");
+
+            /*// Disable player
             collision.gameObject.SetActive(false);
 
             // Restart the current scene
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            */
 
             // Checks for obstacles in between enemy and player
             //CheckForObstacles(collision.gameObject);
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    /*private void OnTriggerStay2D(Collider2D collision)
     {
         // Checks if the colliding object is the player
         // If it is the player, call the CheckForObstacles method
@@ -41,7 +45,7 @@ public class EnemyVision : MonoBehaviour
             //CheckForObstacles(collision.gameObject);
         }
         
-    }
+    }*/
 
     /// <summary>
     /// Checks for obstacles in between the enemy and player
