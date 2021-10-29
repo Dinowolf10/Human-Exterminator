@@ -50233,6 +50233,10 @@ PrefabInstance:
       propertyPath: m_Volume
       value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 4158318166576172245, guid: 2b71c985dff074a4da78befa5bdd26a1, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4158318167353195248, guid: 2b71c985dff074a4da78befa5bdd26a1, type: 3}
       propertyPath: m_Name
       value: LevelManager
