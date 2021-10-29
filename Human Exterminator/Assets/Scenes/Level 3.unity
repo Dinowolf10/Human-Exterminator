@@ -219,7 +219,27 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -4198759450892031922, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: path.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4198759450892031922, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
       propertyPath: waitTimeAtPivots
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4198759450892031922, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: path.Array.data[0].x
+      value: -1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -4198759450892031922, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: path.Array.data[0].y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4198759450892031922, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: path.Array.data[1].x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -4198759450892031922, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: path.Array.data[1].y
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7406268687684451781, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
