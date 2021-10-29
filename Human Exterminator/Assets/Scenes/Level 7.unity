@@ -49946,6 +49946,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4198759450892031922, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: path.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4198759450892031922, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: waitTimeAtPivots
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4198759450892031922, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: path.Array.data[0].x
+      value: -1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: -4198759450892031922, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: path.Array.data[0].y
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: -4198759450892031922, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: path.Array.data[1].x
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: -4198759450892031922, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
+      propertyPath: path.Array.data[1].y
+      value: 1.8
+      objectReference: {fileID: 0}
     - target: {fileID: 7406268687684451781, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
       propertyPath: m_Name
       value: EnemyTop
@@ -50001,26 +50025,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7406268687684451781, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
   m_PrefabInstance: {fileID: 1250887141}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1250887143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1250887142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 670c84f293d282a46976ec6e9a7c9a33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waitTimeAtPivots: 0
-  walkSpeed: 1
-  path:
-  - {x: -1.25, y: 1.8, z: 0}
-  - {x: 1.25, y: 1.8, z: 0}
-  vision: {fileID: 0}
-  animationManager: {fileID: 0}
-  isDying: 0
 --- !u!1001 &1323660865
 PrefabInstance:
   m_ObjectHideFlags: 0
