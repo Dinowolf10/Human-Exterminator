@@ -49606,6 +49606,7 @@ MonoBehaviour:
   pauseDownLeft: 0
   pauseUpRight: 0
   pauseDownRight: 0
+  animationsManager: {fileID: 0}
 --- !u!1 &859386864
 GameObject:
   m_ObjectHideFlags: 0
@@ -49797,11 +49798,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7406268687684451783, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.28
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7406268687684451783, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.94
+      value: 1.45
       objectReference: {fileID: 0}
     - target: {fileID: 7406268687684451783, guid: 37c2740567d53cb49830ec90e0790c05, type: 3}
       propertyPath: m_LocalPosition.z
@@ -49867,11 +49868,12 @@ MonoBehaviour:
   pauseLeft: 1
   pauseUp: 0
   pauseRight: 0
-  pauseDown: 0
+  pauseDown: 1
   pauseUpLeft: 0
   pauseDownLeft: 0
   pauseUpRight: 0
-  pauseDownRight: 1
+  pauseDownRight: 0
+  animationsManager: {fileID: 0}
 --- !u!1001 &1127010673
 PrefabInstance:
   m_ObjectHideFlags: 0
