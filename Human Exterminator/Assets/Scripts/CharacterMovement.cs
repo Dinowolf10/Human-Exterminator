@@ -36,7 +36,7 @@ public class CharacterMovement : MonoBehaviour
     public PhaseBar phaseBar;
     float timeAfterPhase;
     float timeAfterSpook;
-    float spookCooldown = 3;
+    float spookCooldown = 2f;
     float timeSinceSpook = 3;
 
     private bool isSpooking = false;
@@ -103,7 +103,7 @@ public class CharacterMovement : MonoBehaviour
 
             if (Input.GetKey(KeyCode.Space))
             {
-                phaseBar.slider.value -= Time.deltaTime;
+                phaseBar.slider.value -= Time.deltaTime * 4;
                 timeAfterPhase = 0;
             }
             else
@@ -112,9 +112,9 @@ public class CharacterMovement : MonoBehaviour
             }
 
 
-            if (timeAfterPhase >= 3.0)
+            if (timeAfterPhase >= 2.0)
             {
-                phaseBar.slider.value += (Time.deltaTime / 2);
+                phaseBar.slider.value += (Time.deltaTime);
             }
 
             //keep track of player facing direction 
