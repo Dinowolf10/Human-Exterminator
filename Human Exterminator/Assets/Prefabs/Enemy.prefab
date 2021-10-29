@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxVision: 5
+  enemy: {fileID: 7406268687684451781}
 --- !u!1 &3730968974963027454
 GameObject:
   m_ObjectHideFlags: 0

@@ -144,16 +144,16 @@ public class CharacterMovement : MonoBehaviour
 
             if (Input.GetKeyUp(KeyCode.Space) || phaseBar.slider.value <= 0)
             {
-                col.enabled = true;
+                col.isTrigger = false;
                 timeAfterPhase = timeAfterPhase + Time.deltaTime;
             }           
             else if (Input.GetKey(KeyCode.Space))
             {
-                if (col.enabled == false)
+                if (col.isTrigger == true)
                 {
                     return;
                 }
-                col.enabled = false;
+                col.isTrigger = true;
 
             }
             else if(phaseBar.slider.value == phaseBar.slider.minValue)
